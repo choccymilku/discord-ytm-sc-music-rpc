@@ -1,21 +1,27 @@
-# Discord RPC for YouTube Music 
+# Discord RPC for YouTube Music and SoundCloud
 
-I was always jealous of my friends who used Spotify because they could show off their impeccable taste in music for the world to see on Discord, while I was forced to enjoy my music all alone.
-
-*Until now!*
-
-![my discord status, showing that i am rickrolling myself](picture.png)
+![my discord status, showing what i'm listening to](picture.png)
 
 # Installing
 
 * Add the [userscript](https://github.com/adrian154/discord-yt-music-rpc/blob/main/userscript.js) via [TamperMonkey](https://www.tampermonkey.net/) 
-* Download the [app](https://github.com/adrian154/discord-yt-music-rpc/releases/tag/0.0.1) and run it.
-* Listen to some tunes!
+* Go to "code" folder and run the .bat file (sc - SoundCloud, ytm - YouTube Music (it will also open the web dashboard))
+* Listen to something on your browser
+
+# other stuff
+
+* supports skipping music (seeking)
+* ⚠ you need to have discord open in order for the RPC to connect, otherwise the server won't work (you can restart the server from the dashboard, or using CLI)
+
+# planned things
+
+* run one server for both RPC (still figuring out)
+* possibly allow making any kind of an RPC without much effort
 
 # How It Works
 
-The userscript watches YouTube music for updates via the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API) and relays them to the local app by making an HTTP request to a webserver running on `localhost:19347`. When the app receives an update, it updates your Discord activity.
+The userscript watches YTM or SC for updates via the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API), send the info to the server by making an HTTP request to `localhost:19347`. When the app receives an update, it updates your Discord activity.
 
 # Should you use this?
 
-No. Go use [PreMid](https://premid.app/), it's better. I don't really know why I bothered making this.
+if you want, PreMid has more to offer (but places its name everywhere), if it doesn't bother you, use it.
