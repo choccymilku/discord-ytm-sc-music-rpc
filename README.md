@@ -4,7 +4,7 @@
 
 # Installing
 
-* Add the [userscript](https://github.com/adrian154/discord-yt-music-rpc/blob/main/userscript.js) via [TamperMonkey](https://www.tampermonkey.net/) 
+* Add the [userscript](https://github.com/choccymilku/discord-ytm-sc-music-rpc/tree/main/userscripts) via [TamperMonkey](https://www.tampermonkey.net/) 
 * Go to "code" folder and run the .bat file (sc - SoundCloud, ytm - YouTube Music (it will also open the web dashboard))
 * Listen to something on your browser
 
