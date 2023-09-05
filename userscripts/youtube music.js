@@ -44,53 +44,59 @@
         return false; // Default to false if the button is not found
     };
 
-    const updateActivity = () => {
-        const meta = navigator.mediaSession.metadata;
-        const isPlaying = isMusicPlaying();
+const updateActivity = () => {
+    const meta = navigator.mediaSession.metadata;
+    const isPlaying = isMusicPlaying();
 
-        if (!meta) return; // Check if metadata is available
+    if (!meta) return; // Check if metadata is available
 
-        // Extract start and end timestamps
-        const timestamps = extractTimestamps();
-        if (!timestamps) return; // No valid timestamps found
+    // Extract start and end timestamps
+    const timestamps = extractTimestamps();
+    if (!timestamps) return; // No valid timestamps found
 
-        const currentTimestamp = Math.floor(Date.now() / 1000);
+    const currentTimestamp = Math.floor(Date.now() / 1000);
 
-        // Calculate start and end timestamps relative to the current time
-        const startTimestamp = currentTimestamp - timestamps.currentTimeInSeconds;
-        const endTimestamp = currentTimestamp + (timestamps.totalTimeInSeconds - timestamps.currentTimeInSeconds);
+    // Calculate start and end timestamps relative to the current time
+    const startTimestamp = currentTimestamp - timestamps.currentTimeInSeconds;
+    const endTimestamp = currentTimestamp + (timestamps.totalTimeInSeconds - timestamps.currentTimeInSeconds);
 
+    const buttonElement = document.querySelector('.ytp-title-link'); // Replace with the appropriate selector
+    const buttonHref = buttonElement.href; // Get the href attribute of the selected element
 
-const buttonElement = document.querySelector('.ytp-title-link'); // Replace with the appropriate selector
-const buttonHref = buttonElement.href; // Get the href attribute of the selected element
-
-        // Add the button data
-const buttonData = {
-  label: "Listen on YouTube Music",
-  url: buttonHref, // Use the href attribute of the selected element
-};
-
-        const url = new URL("http://localhost:19347/song");
-        url.searchParams.set("artist", meta.artist);
-        url.searchParams.set("title", meta.title);
-        url.searchParams.set("url", meta.artwork[meta.artwork.length - 1].src);
-        url.searchParams.set("buttonLabel", buttonData.label);
-        url.searchParams.set("buttonUrl", buttonData.url);
-
-        // Add the calculated timestamps to the URL
-        url.searchParams.set("startTimestamp", startTimestamp.toString());
-        url.searchParams.set("endTimestamp", endTimestamp.toString());
-
-        // Add a parameter to indicate if music is playing or paused
-        url.searchParams.set("isPlaying", isPlaying ? "1" : "0");
-
-        fetch(url, {
-            method: "POST"
-        });
-
-        // Log the current state (playing or paused)
-        console.log(`Music is currently ${isPlaying ? 'playing' : 'paused'}`);
+    // Add the button data
+    const buttonData = {
+        label: "Listen on YouTube Music",
+        url: buttonHref, // Use the href attribute of the selected element
     };
+
+    const url = new URL("http://localhost:19347/song");
+    url.searchParams.set("artist", meta.artist);
+    url.searchParams.set("title", meta.title);
+    url.searchParams.set("url", meta.artwork[meta.artwork.length - 1].src);
+    url.searchParams.set("buttonLabel", buttonData.label);
+    url.searchParams.set("buttonUrl", buttonData.url);
+
+    // Add the calculated timestamps to the URL
+    url.searchParams.set("startTimestamp", startTimestamp.toString());
+    url.searchParams.set("endTimestamp", endTimestamp.toString());
+
+    // Add a parameter to indicate if music is playing or paused
+    url.searchParams.set("isPlaying", isPlaying ? "1" : "0");
+
+    fetch(url, {
+        method: "POST"
+    });
+
+    // Log the current state (playing or paused)
+    if (isPlaying) {
+        console.log("Music is currently playing");
+    } else {
+        console.log("Music is currently paused");
+        // Add code here to perform any necessary actions when playback is paused
+        // For example, you can pause the playback using JavaScript
+        // You might need to interact with the YouTube Music player's API for this.
+    }
+};
 
     let currentMeta = null;
     let currentTimestamps = null;
